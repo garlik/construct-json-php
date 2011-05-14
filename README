@@ -3,6 +3,72 @@ This is a simple implementation of the CONSTRUCT JSON idea
 
 To install this code first edit settings.php to state what endpoint you with to
 use, then copy settings.php, query.php, and sparql-xml-parse.php to an
-appropriate place in your Apache deployment.
+appropriate place in your Apache deployment. You can also copy the index.html
+if you want a simple HTML frontpage.
 
-The code is made available under the GPL v3.
+An example query is:
+
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+CONSTRUCT JSON {
+   { "name": ?name, "sha1": ?sum }
+}
+FROM <http://plugin.org.uk/swh.xrdf>
+WHERE {
+   ?x foaf:name ?name .
+   OPTIONAL {
+      ?x foaf:mbox_sha1sum ?sum .
+   }
+}
+LIMIT 10
+
+Which when rul will produce the following results:
+
+[
+    {
+        "name": "Libby Miller",
+        "sha1": "289d4d44325d0b0218edc856c8c3904fa3fd2875" 
+    },
+    {
+        "name": "Luke Wilson-Mawer",
+        "sha1": "cdd70a4226b1b980e49b6e3a85471ac4d94d7483" 
+    },
+    {
+        "name": "Andy Thomas",
+        "sha1": "e82619232f833cd68c388dcb1ffe00af52e0f91c" 
+    },
+    {
+        "name": "Dave Beckett",
+        "sha1": "970987f991961f2553a1bf2574166fa29befbccb" 
+    },
+    {
+        "name": "JXT",
+        "sha1": NULL 
+    },
+    {
+        "name": "Nick Gibbins",
+        "sha1": "08d333c6437a2411f18a29b49e5a6a07649c9bf1" 
+    },
+    {
+        "name": "Jamin",
+        "sha1": NULL 
+    },
+    {
+        "name": "Mischa Tuffield",
+        "sha1": "13dbc4ea7e4fc55ae706562a14ab5b444f805d8c" 
+    },
+    {
+        "name": "Nigel Shadbolt",
+        "sha1": "e966302104bd52f060f0e4545e8299f2d54ee3ae" 
+    },
+    {
+        "name": "LV2",
+        "sha1": NULL 
+    }
+]
+
+?var subsitutions will happen anywhere in the JSON section, including inside
+strings (probably a bug), and on the key side of key/value pairs, so you can do things like:
+
+{ "name": ?name, ?type: ?value }
+
+The code is made available under the GPL v3, see COPYING for details.

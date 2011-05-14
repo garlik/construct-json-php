@@ -5,7 +5,18 @@
 </head>
 <body>
  <form action="query.php">
-  <textarea name="query" rows="24" cols="80"></textarea>
+  <textarea name="query" rows="24" cols="80">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+CONSTRUCT JSON {
+   { "name": ?name, "sha1": ?sum }
+}
+FROM &lt;http://plugin.org.uk/swh.xrdf&gt;
+WHERE {
+   ?x foaf:name ?name .
+   OPTIONAL {
+      ?x foaf:mbox_sha1sum ?sum .
+   }
+}
+LIMIT 100</textarea>
   <br/>
   <input type="submit"/>
  </form>
