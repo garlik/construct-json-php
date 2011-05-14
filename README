@@ -1,0 +1,8 @@
+This is a simple implementation of the CONSTRUCT JSON idea
+(http://steveharris.tumblr.com/post/4590579712/construct-json).
+
+To install this code first edit settings.php to state what endpoint you with to
+use, then copy settings.php, query.php, and sparql-xml-parse.php to an
+appropriate place in your Apache deployment.
+
+The code is made available under the GPL v3.
